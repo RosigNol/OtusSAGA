@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: db-configmap
+data:
+  init.sql: |
+    -- init.sql
+    CREATE database  item_service;
+    CREATE database  order_service;
+    CREATE database  payment_service;

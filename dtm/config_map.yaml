@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: dtm-conf
+  labels:
+    app: dtm
+data:
+  config.yaml: |-
+    store:
+      Driver: postgres
+      Host: postgres-postgresql
+      Port: 5432
+      Username: postgres
+      Password: postgres

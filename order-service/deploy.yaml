@@ -1,0 +1,68 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: order-deployment
+  labels:
+    app: order-service
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: order-service
+  template:
+    metadata:
+      labels:
+        app: order-service
+    spec:
+      containers:
+        - name: order-service
+          image: rosignol/order-service:0.0.2
+          env:
+            - name: ENV
+              value: dev
+          ports:
+            - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: order-service
+  labels:
+    app: order-service
+spec:
+  selector:
+    app: order-service
+  type: LoadBalancer
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+      nodePort: 30003
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: order-service
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/use-regex: "true"
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: arch.homework
+      http:
+          paths:
+            - path: /api/order/.*
+              pathType: ImplementationSpecific
+              backend:
+                service:
+                  name: order-service
+                  port:
+                    number: 80
+            - path: /api/order/create-order-saga
+              pathType: Prefix
+              backend:
+                service:
+                  name: order-service
+                  port:
+                    number: 80

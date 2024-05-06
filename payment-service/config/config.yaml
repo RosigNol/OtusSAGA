@@ -1,0 +1,18 @@
+---
+debug: true
+contextTimeout: 5
+
+server:
+  port: "80"
+  host: "0.0.0.0"
+  env: "local"
+
+services:
+
+database:
+  driver: "postgres"
+  host: "postgres-postgresql"
+  port: 5432
+  username: "postgres"
+  password: "postgres"
+  name: "payment_service"

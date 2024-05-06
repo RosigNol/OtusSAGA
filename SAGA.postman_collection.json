@@ -1,0 +1,106 @@
+{
+	"info": {
+		"_postman_id": "af5878f0-9858-4bc2-aba4-63ed08527983",
+		"name": "SAGA",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19230276"
+	},
+	"item": [
+		{
+			"name": "item-create",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Authorization",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Iphone 14\",\r\n    \"price\": 5000,\r\n    \"price_max\": 5000,\r\n    \"price_min\": 5000,\r\n    \"show_free_ship\": true,\r\n    \"description\": \"Iphone 14\",\r\n    \"sku\": \"123456789\",\r\n    \"quantity\": 1000,\r\n    \"stock\":10,\r\n    \"discount\": \"0%\",\r\n    \"raw_discount\": 0,\r\n    \"images\": [\"123456789\"],\r\n    \"category_id\": \"2\",\r\n    \"variant_ids\": [1]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://arch.homework/api/item/create",
+					"protocol": "http",
+					"host": [
+						"arch",
+						"homework"
+					],
+					"path": [
+						"api",
+						"item",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "user-wallet",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"user_id\":\"1\",\r\n    \"balance\":999999\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://arch.homework/api/user-wallet/",
+					"protocol": "http",
+					"host": [
+						"arch",
+						"homework"
+					],
+					"path": [
+						"api",
+						"user-wallet",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "order_create-order-saga",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"order_items\": [\r\n        {\r\n            \"item_id\": \"0000022b-d387-4e7d-b0fe-506c75fc9158\",\r\n            \"quantity\": 1\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://arch.homework/api/order/create-order-saga",
+					"protocol": "http",
+					"host": [
+						"arch",
+						"homework"
+					],
+					"path": [
+						"api",
+						"order",
+						"create-order-saga"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

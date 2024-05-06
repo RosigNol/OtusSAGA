@@ -1,0 +1,21 @@
+auth:
+  enablePostgresUser: true
+  postgresPassword: "postgres"
+  username: "postgres"
+  password: "postgres"
+  database: "postgres"
+
+primary:
+  persistence:
+    enabled: false
+    existingClaim: "postgres-pv-claim"
+
+primary:
+  extraVolumeMounts:
+    - name: db-configmap
+      mountPath: /docker-entrypoint-initdb.d
+      readOnly: true
+  extraVolumes:
+    - name: db-configmap
+      configMap:
+        name: db-configmap

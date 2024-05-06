@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: dtm-ing
+spec:
+  rules:
+    - host: "arch.homework"
+      http:
+        paths:
+          - path: /api/dtmsvr
+            pathType: Prefix
+            backend:
+              service:
+                name: dtm-svc
+                port:
+                  number: 36789 # This is the http server, grpc server setting, please visit https://kubernetes.github.io/ingress-nginx/examples/grpc/
+  ingressClassName: nginx # Other ingressClassName is used, please check it yourself

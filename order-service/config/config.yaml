@@ -1,0 +1,22 @@
+---
+debug: true
+contextTimeout: 5
+
+server:
+  port: "80"
+  host: "0.0.0.0"
+  env: "local"
+  myURL: "http://arch.homework/api/order"
+
+services:
+  itemServiceURL: "http://arch.homework/api/item"
+  paymentServiceURL: "http://arch.homework/api/payment"
+  dtmServiceURL: "http://arch.homework/api/dtmsvr"
+
+database:
+  driver: "postgres"
+  host: "postgres-postgresql"
+  port: 5432
+  username: "postgres"
+  password: "postgres"
+  name: "order_service"

@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: PersistentVolume                        # Create a PV
+metadata:
+  name: postgres-pv-volume
+  labels:
+    type: local
+    app: hw-postgres
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteMany
+  hostPath:
+    path: "/mnt/data"
