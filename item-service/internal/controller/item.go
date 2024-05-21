@@ -21,6 +21,7 @@ func InitItemController(c *gin.RouterGroup, groupService service.ItemService, lo
 		logger:      logger,
 	}
 	g := c.Group("/item")
+	g.GET("/", controller.GetAll)
 	g.GET("/:id", controller.GetByID)
 	g.GET("/search", controller.Search)
 	g.POST("/create", controller.Create)
@@ -32,6 +33,15 @@ func InitItemController(c *gin.RouterGroup, groupService service.ItemService, lo
 func (b *ItemController) GetByID(c *gin.Context) {
 	idParam := c.Param("id")
 	bg, err := b.ItemService.GetByID(c, idParam)
+	if err != nil {
+		b.ResponseError(c, http.StatusBadRequest, []error{err})
+		return
+	}
+	b.Response(c, http.StatusOK, "success", bg)
+}
+
+func (b *ItemController) GetAll(c *gin.Context) {
+	bg, err := b.ItemService.GetAll(c)
 	if err != nil {
 		b.ResponseError(c, http.StatusBadRequest, []error{err})
 		return

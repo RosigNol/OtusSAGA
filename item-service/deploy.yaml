@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: item-service
-          image: rosignol/item-service:0.0.3
+          image: rosignol/item-service:0.0.5
           env:
             - name: ENV
               value: dev

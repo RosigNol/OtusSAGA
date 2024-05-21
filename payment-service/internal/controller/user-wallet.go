@@ -22,6 +22,7 @@ func InitUserWalletController(c *gin.RouterGroup, groupService service.UserWalle
 	}
 	g := c.Group("/user-wallet")
 	g.POST("/", controller.Create)
+	g.GET("/", controller.Balance)
 }
 
 func (b *UserWalletController) Create(c *gin.Context) {
@@ -36,4 +37,13 @@ func (b *UserWalletController) Create(c *gin.Context) {
 		return
 	}
 	b.Response(c, http.StatusOK, "success", res)
+}
+
+func (b *UserWalletController) Balance(c *gin.Context) {
+	items, statusCode, err := b.UserWalletService.Balance(c)
+	if err != nil {
+		b.ResponseError(c, statusCode, []error{err})
+		return
+	}
+	b.Response(c, http.StatusOK, "success", items)
 }

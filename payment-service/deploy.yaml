@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: payment-service
-          image: rosignol/payment-service:0.0.1
+          image: rosignol/payment-service:0.0.6
           env:
             - name: ENV
               value: dev
@@ -57,7 +57,7 @@ spec:
               pathType: ImplementationSpecific
               backend:
                 service:
-                  name: order-service
+                  name: payment-service
                   port:
                     number: 80
             - path: /api/user-wallet

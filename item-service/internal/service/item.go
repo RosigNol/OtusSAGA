@@ -15,6 +15,7 @@ import (
 type (
 	ItemService interface {
 		GetByID(ctx context.Context, id string) (item models.Item, err error)
+		GetAll(ctx context.Context) (items []models.Item, err error)
 		Search(ctx context.Context, req dto.SearchItemRequest) (res []models.Item, total *int64, statusCode int, err error)
 		Create(ctx context.Context, req dto.CreateItemRequest) (item models.Item, statusCode int, err error)
 		CalculateStock(ctx context.Context, irs []dto.OrderItem) (statusCode int, err error)
@@ -37,6 +38,11 @@ func NewItemService(db *gorm.DB, config config.Config) ItemService {
 
 func (s *ItemServiceImpl) GetByID(ctx context.Context, id string) (item models.Item, err error) {
 	err = s.db.First(&item, "id = ?", id).Error
+	return
+}
+
+func (s *ItemServiceImpl) GetAll(ctx context.Context) (items []models.Item, err error) {
+	err = s.db.Find(&items).Error
 	return
 }
 

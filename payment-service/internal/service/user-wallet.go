@@ -13,6 +13,7 @@ import (
 type (
 	UserWalletService interface {
 		Create(ctx context.Context, req dto.CreateUserWalletRequest) (payment models.UserWallet, statusCode int, err error)
+		Balance(ctx context.Context) (payment []models.UserWallet, statusCode int, err error)
 	}
 
 	UserWalletServiceImpl struct {
@@ -40,4 +41,13 @@ func (s *UserWalletServiceImpl) Create(ctx context.Context, req dto.CreateUserWa
 	}
 
 	return item, 200, err
+}
+
+func (s *UserWalletServiceImpl) Balance(ctx context.Context) (items []models.UserWallet, statusCode int, err error) {
+
+	if err := s.db.Find(&items).Error; err != nil {
+		return []models.UserWallet{}, 500, fmt.Errorf("error listing payment: %v", err)
+	}
+
+	return items, 200, err
 }
