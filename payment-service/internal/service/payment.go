@@ -14,6 +14,7 @@ type (
 	PaymentService interface {
 		CreateTransaction(ctx context.Context, req dto.CreateTransactionRequest) (payment models.Transaction, statusCode int, err error)
 		Refund(ctx context.Context, req dto.CreateTransactionRequest) (payment models.Transaction, statusCode int, err error)
+		GetTransactions(ctx context.Context) (payment []models.Transaction, statusCode int, err error)
 	}
 
 	PaymentServiceImpl struct {
@@ -27,6 +28,16 @@ func NewPaymentService(db *gorm.DB, config config.Config) PaymentService {
 		db:     db,
 		config: config,
 	}
+}
+
+func (s *PaymentServiceImpl) GetTransactions(ctx context.Context) (items []models.Transaction, statusCode int, err error) {
+
+
+	if err := s.db.Find(&items).Error; err != nil {
+		return []models.Transaction{}, 500, fmt.Errorf("error listing payments: %v", err)
+	}
+
+	return items, 200, nil
 }
 
 func (s *PaymentServiceImpl) CreateTransaction(ctx context.Context, req dto.CreateTransactionRequest) (item models.Transaction, statusCode int, err error) {

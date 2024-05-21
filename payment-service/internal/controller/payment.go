@@ -22,6 +22,7 @@ func InitPaymentController(c *gin.RouterGroup, groupService service.PaymentServi
 	}
 	g := c.Group("/payment")
 	g.POST("/transaction", controller.Create)
+	g.GET("/transaction", controller.GetTransactions)
 	g.POST("/refund", controller.Refund)
 }
 
@@ -39,6 +40,15 @@ func (b *PaymentController) Create(c *gin.Context) {
 		return
 	}
 	b.Response(c, http.StatusOK, "success", res)
+}
+
+func (b *PaymentController) GetTransactions(c *gin.Context) {
+	items, statusCode, err := b.paymentService.GetTransactions(c)
+	if err != nil {
+		b.ResponseError(c, statusCode, []error{err})
+		return
+	}
+	b.Response(c, http.StatusOK, "success", items)
 }
 
 func (b *PaymentController) Refund(c *gin.Context) {

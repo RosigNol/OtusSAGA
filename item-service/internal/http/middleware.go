@@ -4,8 +4,6 @@ import (
 	"bytes"
 	"io"
 	"item-service/config"
-	"net/http"
-	"strings"
 	"time"
 
 	"github.com/gin-contrib/cors"
@@ -91,20 +89,20 @@ func (e *GinMiddleware) Logger(zapLogger *zap.Logger) gin.HandlerFunc {
 
 func (e *GinMiddleware) JWT(config config.Config) gin.HandlerFunc {
 	return func(c *gin.Context) {
-			auth := c.Request.Header.Get("Authorization")
-			if auth == "" {
-				c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{
-					"message": "Unauthorized",
-				})
-				return
-			}
-			token := strings.Split(auth, " ")[1]
-			if token == "" {
-				c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{
-					"message": "Unauthorized",
-				})
-				return
-			}
+			// auth := c.Request.Header.Get("Authorization")
+			// if auth == "" {
+			// 	c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{
+			// 		"message": "Unauthorized",
+			// 	})
+			// 	return
+			// }
+			// token := strings.Split(auth, " ")[1]
+			// if token == "" {
+			// 	c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{
+			// 		"message": "Unauthorized",
+			// 	})
+			// 	return
+			// }
 		c.Next()
 	}
 }
